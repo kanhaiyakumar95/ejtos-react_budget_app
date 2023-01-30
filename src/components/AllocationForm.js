@@ -2,11 +2,21 @@ import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const AllocationForm = (props) => {
-    const { dispatch,remaining  } = useContext(AppContext);
+    const { dispatch,remaining, budget  } = useContext(AppContext);
 
     const [name, setName] = useState('');
     const [cost, setCost] = useState('');
     const [action, setAction] = useState('');
+
+    const validateEvent = () => {
+        if(cost > budget) {
+            alert("The value cannot exceed remaining funds  £"+budget);
+            setCost("");
+            return;
+        }
+    }
+
+    
 
     const submitEvent = () => {
 
@@ -64,6 +74,7 @@ const AllocationForm = (props) => {
                         type='number'
                         id='cost'
                         value={cost}
+                        validate = {validateEvent()}
                         style={{ marginLeft: '2rem' , size: 10}}
                         onChange={(event) => setCost(event.target.value)}>
                         </input>
