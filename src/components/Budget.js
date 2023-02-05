@@ -1,27 +1,35 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const Budget = () => {
-    const { expenses } = useContext(AppContext);
-    const [budget, setCost] = useState(2000);
+    const { expenses, currency, budget, dispatch } = useContext(AppContext);
+    // const [budget, setCost] = useState(2000);
 
     const validateEvent = () => {
-        if(budget > 20000) {
-            alert("The value cannot exceed remaining funds  £"+20000);
-            setCost(2000);
+        const maxBudget = 20000;
+        if(budget > maxBudget ) {
+            alert(`The value cannot exceed remaining funds  ${currency}`+maxBudget);
+            //setCost(2000);
             return;
         }
+    }
+
+    const setCost = (props) => {
+        dispatch({
+            type:'SET_BUDGET',
+            payload: props
+        })
 
         if(budget < expenses) {
-            alert("The value cannot lower than spent funds  £"+expenses);
-            setCost(2000);
+            alert(`The value cannot lower than spent funds  ${currency}`+expenses);
+            // setCost(2000);
             return;
         }
     }
 
     return (
         <div className='alert alert-secondary'>
-            <label htmlFor="budget">Budget:£</label>
+            <label htmlFor="budget">Budget:{currency}</label>
             <input
                 required='required'
                 type='number'
