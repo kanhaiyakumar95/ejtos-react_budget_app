@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const Budget = () => {
-    const { expenses, currency, budget, dispatch } = useContext(AppContext);
+    const { currency, budget, dispatch } = useContext(AppContext);
     // const [budget, setCost] = useState(2000);
 
     const validateEvent = () => {
@@ -19,12 +19,6 @@ const Budget = () => {
             type:'SET_BUDGET',
             payload: props
         })
-
-        if(budget < expenses) {
-            alert(`The value cannot lower than spent funds  ${currency}`+expenses);
-            // setCost(2000);
-            return;
-        }
     }
 
     return (
